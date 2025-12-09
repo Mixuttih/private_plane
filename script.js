@@ -70,7 +70,9 @@ const game = {
         //Printataan pelaajan nimi
         this.printUsername();
         //Printataan Exit-nappi
-        this.exit();
+        if (this.kierros < 1) {
+            this.exit();
+        }
         //Printataan kysymys
         this.kysymysfunktio();
         //Printataan kysymysnumero
@@ -89,16 +91,16 @@ const game = {
     printScore(){
         const kysymysnro_div = document.createElement("div");
         const header_area = document.querySelector("header");
-        kysymysnro_div.id = "kysymysnro"
-        header_area.appendChild(kysymysnro_div)
+        kysymysnro_div.id = "kysymysnro";
+        header_area.appendChild(kysymysnro_div);
         if (this.score < 6) {
-            document.getElementById("kysymysnro").innerHTML = `Question: <b style="color:green">${this.score}</b>`;
+            kysymysnro_div.innerHTML = `Question: <b style="color:green">${this.score}</b>`;
         }
         else if (this.score < 11) {
-            document.getElementById("kysymysnro").innerHTML = `Question: <b style="color:orange">${this.score}</b>`;
+            kysymysnro_div.innerHTML = `Question: <b style="color:orange">${this.score}</b>`;
         }
         else if (this.score < 16) {
-            document.getElementById("kysymysnro").innerHTML = `Question: <b style="color:red">${this.score}</b>`;
+            kysymysnro_div.innerHTML = `Question: <b style="color:red">${this.score}</b>`;
         }
 
     },
@@ -113,7 +115,55 @@ const game = {
         document.getElementById("exit").appendChild(exit_button);
     },
 
-    money() {
+    money(kierros) {
+        if (kierros === 1) {
+            return 100
+        }
+        else if (kierros === 2 ) {
+            return 200
+        }
+        else if (kierros === 3 ) {
+            return 300
+        }
+        else if (kierros === 4 ) {
+            return 500
+        }
+        else if (kierros === 5 ) {
+            return 1000
+        }
+        else if (kierros === 6 ) {
+            return 2000
+        }
+        else if (kierros === 7 ) {
+            return 4000
+        }
+        else if (kierros === 8 ) {
+            return 8000
+        }
+        else if (kierros === 9 ) {
+            return 16000
+        }
+        else if (kierros === 10 ) {
+            return 32000
+        }
+        else if (kierros === 11 ) {
+            return 64000
+        }
+        else if (kierros === 12 ) {
+            return 125000
+        }
+        else if (kierros === 13 ) {
+            return 250000
+        }
+        else if (kierros === 14 ) {
+            return 500000
+        }
+        else if (kierros === 15 ) {
+            return 1000000
+        }
+        else {
+            return 0
+        }
 
     },
 
@@ -409,8 +459,9 @@ const game = {
         game_over_image.src= 'gif/private_plane_game_over_gif.gif';
         game_over_image.id="game_over_image";
 
+        let winnings = this.money(this.kierros)
         kysymysalue.innerHTML = "";
-        kysymysalue.innerHTML += `<p class="reaction_text">GAME OVER! ${this.player_name}'s Quiz finished! Score: ${this.score}</p>`
+        kysymysalue.innerHTML += `<p class="reaction_text">GAME OVER! ${this.player_name}'s earnings for this game: ${winnings}€</p>`
         kysymysalue.appendChild(game_over_image);
         vastausalue.innerHTML = "";
         vastausalue.innerHTML += "<br><button class='continue_button' onclick='refresh()'>Try again?</button> "
