@@ -79,10 +79,18 @@ const game = {
     },
     //Pelaajan nimen printtaus
     printUsername() {
-        document.getElementById("username").innerHTML = "Username:<br>"  + this.player_name;
+        const username_div = document.createElement("div");
+        const header_area = document.querySelector("header");
+        username_div.id = "username"
+        header_area.appendChild(username_div)
+        username_div.innerHTML = "Username:<br>"  + this.player_name;
     },
     //Kysymysnumeron printtaus
     printScore(){
+        const kysymysnro_div = document.createElement("div");
+        const header_area = document.querySelector("header");
+        kysymysnro_div.id = "kysymysnro"
+        header_area.appendChild(kysymysnro_div)
         if (this.score < 6) {
             document.getElementById("kysymysnro").innerHTML = `Question: <b style="color:green">${this.score}</b>`;
         }
@@ -425,7 +433,10 @@ const start_game = document.querySelector('#start_game');
 //Lisätään aloitusnappiin async event listener
 start_game.addEventListener('submit', async function(evt){
     evt.preventDefault();
-    const player_name = document.querySelector('input[name=namebox]').value;
+    let player_name = document.querySelector('input[name=namebox]').value;
+    if (player_name.length > 24) {
+        player_name = "Liian pitkä nimi"
+    }
     game.init(player_name);
 });
 

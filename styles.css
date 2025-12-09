@@ -32,6 +32,9 @@ header {
 
 }
 #username {
+    background-color: rgb(31, 96, 161);
+    border: 5px outset rgb(18, 54, 91);
+    border-radius: 25px;
     grid-column-start: 3;
     grid-column-end: 4;
     grid-row-start: 2;
@@ -39,6 +42,9 @@ header {
 
 }
 #kysymysnro {
+    background-color: rgb(31, 96, 161);
+    border: 5px outset rgb(18, 54, 91);
+    border-radius: 25px;
     grid-column-start: 1;
     grid-column-end: 1;
     grid-row-start: 2;
