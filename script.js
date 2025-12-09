@@ -10,6 +10,8 @@ const sound_wrong = document.getElementById("sound_wrong");
 const volumeSlider = document.getElementById("volume_slider");
 volumeSlider.addEventListener("input", updateVolume);
 
+
+
 //Musiikkiefekti-funktio
 function playSFX(sfx) {
     //Pausettaa soivan taustamusiikin
@@ -21,7 +23,7 @@ function playSFX(sfx) {
 
     //Kun musiikkiefekti on soinut, käynnistetään taustamusiikki taas
     sfx.onended = () => {
-        if (game.gameStarted){
+        if (game.gameActive){
             bg_music.play();
         }
     };
@@ -51,11 +53,15 @@ const game = {
     olki2: 1,
     olki3: 1,
 
+    gameStarted: false,
+    gameActive: false,
+
     //Init -funktio käynnistää pelin
     async init(name) {
         //Tarkistetaan onko peli käynnissä, ja käynnistetään taustamusiikki
         if (!this.gameStarted) {
             this.gameStarted = true;
+            this.gameActive = true;
             bg_music.currentTime = 0;
             bg_music.play();
             playSFX(sound_start);
@@ -454,6 +460,7 @@ const game = {
 
     //Printataan lopputulos
     gameover() {
+        this.gameActive = false;
         bg_music.pause();
         bg_music.currentTime = 0;
          const game_over_image = document.createElement('img');
