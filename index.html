@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tietovisa -testi</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div id="logo">Private jet</div>
+        <div id="kysymysnro"></div>
+        <div id="exit"></div>
+        <div id="username"></div>
+
+    </header>
+    <main id="kysymysalue">
+        <p><b>Welcome to Private jet!</b></p>
+        <p>The game whare you win money by answering aviation related questions! Are you a true plane enthusiast? Can you name every airport at the drop of a hat? This is the game for you!</p>
+        <p>On each round you will be asked one question and you have to choose an answer from four options. There will be 15 rounds. If you have trouble answering the question, you may use your lifelines; 50/50, Ask the Audience or Call a Friend.</p>
+        <p>50/50 will eliminate 2 of the wrong answers. Ask the audience will give percentage of people that think that the option is correct. Call a Friend hear what your friend thinks is the answer. Remember, you may only use one(1) lifeline per question! If you persist until the end the grand prize of 1 000 000€ awaits you!</p>
+        <p><b>Ready to play? Good luck!</b></p>
+    </main>
+    <footer id="vastausalue">
+    <div id="score"></div>
+    </footer>
+
+  <div id="volume_control">
+    <label for="volume_slider">Volume:</label>
+    <input type="range" id="volume_slider" min="0" max="1" step="0.01" value="1">
+    </div>
+
+    <audio id="bg_music" src="sounds/bg.mp3" loop preload="auto"></audio>
+    <audio id="sound_start" src="sounds/start.mp3" preload="auto"></audio>
+    <audio id="sound_correct" src="sounds/correct.mp3" preload="auto"></audio>
+    <audio id="sound_wrong" src="sounds/wrong.mp3" preload="auto"></audio>
+      <script src="script.js"></script>
+  </body>
+</html>
