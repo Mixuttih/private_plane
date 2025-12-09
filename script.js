@@ -438,6 +438,8 @@ const game = {
             this.gameover();
         }
     },
+
+    //Kun kysymys menee oikein, printataan onnittelusivu
     questionright() {
         const right_image = document.createElement('img');
         right_image.src= 'gif/private_plane_right_gif.gif';
@@ -466,6 +468,7 @@ const game = {
         vastausalue.innerHTML += "<br><button class='continue_button' onclick='refresh()'>Try again?</button> "
 
     },
+
     winner() {
         bg_music.pause();
         bg_music.currentTime = 0;
@@ -482,13 +485,11 @@ const game = {
     }
 };
 
-
 //API -haku
 async function kysymyshaku(kierros) {
     const response = await fetch(`http://127.0.0.1:5000/${kierros}`);
     return response.json();
 }
-
 
 //Printataan nimikenttä ja aloitusnappi
 vastausalue.innerHTML = "<form id='start_game'><input id='namebox' name='namebox' placeholder='Enter name...' type='text'><input type='submit' value='Start game'></form>";
