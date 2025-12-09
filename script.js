@@ -24,14 +24,12 @@ function playSFX(sfx) {
         if (game.gameStarted){
             bg_music.play();
         }
-
     };
 }
 
 //Äänenvoimakkuus
 function updateVolume() {
     const v = volumeSlider.value;
-
     bg_music.volume = v;
     sound_start.volume = v;
     sound_correct.volume = v;
@@ -69,7 +67,7 @@ const game = {
         this.player_name = name;
         //Printataan pelaajan nimi
         this.printUsername();
-        //Printataan Exit-nappi
+        //Printataan Exit-nappi, mutta vain jos kierros on 0
         if (this.kierros < 1) {
             this.exit();
         }
@@ -107,14 +105,13 @@ const game = {
     //Exit -napin printtaus
     exit(){
         const exit_button = document.createElement("button");
-
         exit_button.textContent = 'EXIT';
         exit_button.id = "exit";
-
         exit_button.addEventListener("click", () => {refresh();});
         document.getElementById("exit").appendChild(exit_button);
     },
 
+    //Lopputuloksen lasku
     money(kierros) {
         if (kierros === 1) {
             return 100
@@ -164,7 +161,6 @@ const game = {
         else {
             return 0
         }
-
     },
 
     //Vastaanottaa kysymyslistan ja printtaa sen oikeassa formaatissa
@@ -189,10 +185,10 @@ const game = {
     //Luodaan jokaiselle vastaukselle painike
     for (let i = 1; i < 5; i++) {
         const button = document.createElement("button");
-
         button.textContent = this.kysymys[`vastaus${i}`][1];
         button.value = this.kysymys[`vastaus${i}`][0];
         button.id = "vastausnappi";
+        console.log(this.kysymys[`vastaus${i}`][2]);
 
         //Event listener painikkeille vastauksen valitsemiseen
         button.addEventListener("click", () => {
@@ -353,7 +349,7 @@ const game = {
                     lifelineArea.appendChild(fiftyFiftyButton)
                 }
 
-                //Kysy kaverilta
+                //Kysy kaverilta -oljenkorsi
                 if (this.olki3 === 1) {
                     const callFriendButton = document.createElement("button");
 
@@ -366,16 +362,20 @@ const game = {
                         this.olki3 = 0;
 
                         //CALL FRIEND KOODI
+                        //Muuttuja kaverin vastaukselle
                         let kaveri = "";
+                        //Arvotaan meneekö kaverin vastaus väärin
                         let errormargin = Math.floor(Math.random() * 100) + 1
 
-                        if (errormargin <= 50) {
+                        //Kaverilla on 60% mahdollisuus vastata oikein
+                        if (errormargin <= 60) {
                             for (let i = 1; i < 5; i++) {
                                 if (this.kysymys[`vastaus${i}`][2] === 1) {
                                     kaveri = this.kysymys[`vastaus${i}`][1]
                                 }
                             }
                         }
+                        //Ja 40% mahdollisuus vastata väärin
                         else {
                             for (let i = 1; i < 5; i++) {
                                 if (this.kysymys[`vastaus${i}`][2] === 0) {
@@ -394,7 +394,6 @@ const game = {
                             const hintArea = document.createElement("div")
                             hintArea.id = "vihjealue"
                             hintArea.textContent = `I think the answer is ${kaveri}`
-
                             kysymysalue.appendChild(hintArea)
                         }
 
@@ -427,10 +426,10 @@ const game = {
             this.kierros++;
 
             //Uusi kierros, jos kierrokset ovat täynnä, lopetetaan peli
-            if (this.kierros < 16) {
+            if (this.kierros < 15) {
                 this.questionright()
             } else {
-                this.gameover();
+                this.winner();
             }
         }
         //Jos valitun vastauksen arvo oli 0, lopetetaan peli
@@ -466,6 +465,20 @@ const game = {
         vastausalue.innerHTML = "";
         vastausalue.innerHTML += "<br><button class='continue_button' onclick='refresh()'>Try again?</button> "
 
+    },
+    winner() {
+        bg_music.pause();
+        bg_music.currentTime = 0;
+        const right_image = document.createElement('img');
+        right_image.src= 'gif/private_plane_right_gif.gif';
+        right_image.id="right_image";
+
+        let winnings = this.money(this.kierros)
+        kysymysalue.innerHTML = "";
+        kysymysalue.innerHTML += `<p class="reaction_text">YOU WIN! ${this.player_name}'s earnings for this game: ${winnings}€</p>`
+        kysymysalue.appendChild(right_image);
+        vastausalue.innerHTML = "";
+        vastausalue.innerHTML += "<br><button class='continue_button' onclick='refresh()'>Try again?</button> "
     }
 };
 
