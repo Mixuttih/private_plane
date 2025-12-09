@@ -92,10 +92,10 @@ const game = {
         kysymysnro_div.id = "kysymysnro";
         header_area.appendChild(kysymysnro_div);
         if (this.score < 6) {
-            kysymysnro_div.innerHTML = `Question: <b style="color:green">${this.score}</b>`;
+            kysymysnro_div.innerHTML = `Question: <b style="color:lime">${this.score}</b>`;
         }
         else if (this.score < 11) {
-            kysymysnro_div.innerHTML = `Question: <b style="color:orange">${this.score}</b>`;
+            kysymysnro_div.innerHTML = `Question: <b style="color:yellow">${this.score}</b>`;
         }
         else if (this.score < 16) {
             kysymysnro_div.innerHTML = `Question: <b style="color:red">${this.score}</b>`;
